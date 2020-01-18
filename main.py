@@ -24,7 +24,7 @@ hyper_params = {
     "samples_interval":samples_interval,
 }
 
-experiment = Experiment(project_name=config.project_name,api_key=config.api_key) #please add your commet  api_key and name
+experiment = Experiment(project_name=config.project_name,api_key=config.api_key) # add your  api_key and name
 experiment.log_parameters(hyper_params)
 
 if __name__ == "__main__": 

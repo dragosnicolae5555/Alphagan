@@ -112,7 +112,6 @@ class AlphaGAN():
     def build_encoder(self):
         model = Sequential()
 
-        # model.add(Flatten(input_shape=self.x_shape))
         model.add(Dense(64,input_shape=self.x_shape))
         model.add(LeakyReLU(alpha=0.2))
         model.add(BatchNormalization(momentum=0.8))
@@ -121,7 +120,7 @@ class AlphaGAN():
         model.add(BatchNormalization(momentum=0.8))
         model.add(Dense(self.latent_dim))
         model.name="encoder"      
-        #model.summary()
+        model.summary()
 
         x = Input(shape=self.x_shape)
         z = model(x)
@@ -130,7 +129,6 @@ class AlphaGAN():
 
     def build_generator(self):
         model = Sequential()
-
         model.add(Dense(64, input_dim=self.latent_dim))
         model.add(LeakyReLU(alpha=0.2))
         model.add(BatchNormalization(momentum=0.8))
@@ -140,12 +138,9 @@ class AlphaGAN():
         model.add(Dense(np.prod(self.x_shape), activation='tanh'))
         model.add(Reshape(self.x_shape))
         model.name="generator"  
-
-        #model.summary()
+        model.summary()
         z = Input(shape=(self.latent_dim,))
         gen_img = model(z)
-
-
         return Model(z, gen_img)
 
     def build_discriminator(self):
@@ -166,7 +161,7 @@ class AlphaGAN():
         validity = Dense(1, activation="sigmoid")(model)
         model = Model([z, img], validity)
         model.name="discriminator"
-        #model.summary()
+        model.summary()
         return model
 
     def get_losses(self,x):
