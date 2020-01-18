@@ -3,7 +3,6 @@
 This an adapted implementation of AlphaGan  for Zero Shot outlier detection in https://www.kaggle.com/mlg-ulb/creditcardfraud
 using only negative samples for taining 
 
-
 ###  Create conda environment with all dependencies 
 ``` conda env create -f environment.yaml ```
 
@@ -15,6 +14,7 @@ Add your comet-ml api key and project in config.py
 ###  run main.py 
 ```python main.py```
 
+Example experiment https://www.comet.ml/dragosnicolae5555/c-alpha/5f6db96a5eb248eba910c21148645334
 
 General Framework :
  1.   Train GAN to generate only normal data points (negative samples).
