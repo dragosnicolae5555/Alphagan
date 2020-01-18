@@ -11,7 +11,7 @@ This an adapted implementation of AlphaGan  for Zero Shot outlier detection in h
 ```source activate alpha```
 
 
-###  Add your comet-ml api key and project in config.py 
+##  Add your comet-ml api key and project in config.py 
 
 ###  run main.py 
 ```python main.py```
