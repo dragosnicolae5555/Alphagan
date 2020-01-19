@@ -6,10 +6,10 @@ import etl
 from alpha_gan import AlphaGAN
 
 lr_gen = 0.02
-lr_dis = 0.0002
-latent_dim = 20
-nb_epochs = 50000
-samples_interval = nb_epochs//10
+lr_dis = 0.00001
+latent_dim = 15
+nb_epochs = 100000
+samples_interval = nb_epochs//1000
 batch_size=32
 loss="binary_crossentropy"
 path_to_data="data/creditcardfraud.zip"

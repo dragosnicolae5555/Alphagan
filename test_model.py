@@ -42,6 +42,7 @@ def test_model(model,epoch,test_X,test_y,experiment):
     experiment.log_metric("F1-score", f1_score(y_true, y_pred), step=epoch)
     experiment.log_metric("Accuracy", accuracy_score(y_true, y_pred), step=epoch)
     experiment.log_metric("AUC", auc(y_true, y_pred_prob), step=epoch)
+    #experiment.log_confusion_matrix(y_true, y_pred, step=epoch)
     plot_density(inliers, outliers, experiment,train=False)
 
 
