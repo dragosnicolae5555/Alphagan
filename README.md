@@ -1,4 +1,4 @@
-# C-Alphagan
+# Alphagan
 
 This an adapted implementation of AlphaGan  for Zero Shot outlier detection in https://www.kaggle.com/mlg-ulb/creditcardfraud
 using only negative samples for taining 
