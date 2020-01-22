@@ -62,7 +62,7 @@ class AlphaGAN():
         with self.experiment.train():
 
             # Adversarial ground truths
-            valid = np.ones((batch_size, 1))*0.9
+            valid = np.ones((batch_size, 1))*0.9 # label smoothing
             fake = np.zeros((batch_size, 1))
 
             for epoch in range(epochs):
@@ -95,6 +95,7 @@ class AlphaGAN():
                 g_loss = self.alphagan_generator.train_on_batch([z, x], [valid, fake,x])
 
                 # Plot the progress
+                # we use the generator reconstruction loss only in training
                 print ("%d [D loss: %f, acc: %.2f%%] [G loss: %f]" % (epoch, d_loss[0], 100*d_loss[1], g_loss[0]))
                 self.experiment.log_metric("Discriminator Loss", d_loss[0], step=epoch)
                 self.experiment.log_metric("Generator+Reconstruction Loss", g_loss[0], step=epoch)
@@ -181,7 +182,9 @@ class AlphaGAN():
             d_loss_real = self.discriminator.evaluate([z_, x], valid,verbose=0)
             d_loss_fake = self.discriminator.evaluate([z, x_], fake,verbose=0)
             d_loss = 0.5 * np.add(d_loss_real, d_loss_fake)
-
-            # Train the generator (z -> x is valid and x -> z is is invalid)
+            
+            # valid, fake are the output of the generator, everything that comes from real data is valid ,everything else not
+            # Full model needs all inputs and output loss
             g_loss = self.alphagan_generator.evaluate([z, x], [valid, fake,reconstructed_x],verbose=0)
+            #return discrimination loss and reconstruction loss - Binary cross entropy
             return d_loss[0] + g_loss[0]

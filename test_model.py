@@ -28,14 +28,14 @@ def test_model(model,epoch,test_X,test_y,experiment):
 
     thresh_hold = (np.mean(adjusted_outliers)+np.mean(adjusted_inliers))/2
 
-    predictions_in = adjusted_inliers<thresh_hold
-    predicted_out = adjusted_outliers> thresh_hold
+    predictions_inl = adjusted_inliers<thresh_hold
+    predicted_outl = adjusted_outliers> thresh_hold
 
-    inl = np.zeros_like(predictions_in)
-    outl = np.ones_like(predicted_out)
+    inl = np.zeros_like(predictions_inl)
+    outl = np.ones_like(predicted_outl)
 
     y_true = np.concatenate((inl,outl))
-    y_pred = np.concatenate((predictions_in,predicted_out))
+    y_pred = np.concatenate((predictions_inl,predicted_outl))
     y_pred_prob = np.concatenate((adjusted_inliers,adjusted_inliers))
 
 
@@ -55,9 +55,9 @@ def plot_density(inl, outl, experiment,train=False,show_chart=False):
                 hist_kws={'edgecolor': 'black'},
                 kde_kws={'linewidth': 4}, label='outliers')
     if train:
-        plt.title('Train dist of L2 norms of inliers and outliers')
+        plt.title('Train dist of losses of inliers and outliers')
     else:
-        plt.title('Test dist of L2 norms of inliers and outliers')
+        plt.title('Test dist of losses of inliers and outliers')
     plt.xlabel('Sum of Loss')
     plt.ylabel('Sample Count')
     plt.legend()
