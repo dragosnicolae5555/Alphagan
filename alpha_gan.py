@@ -29,7 +29,6 @@ class AlphaGAN():
         # Build and compile the discriminator
         self.discriminator = self.build_discriminator()
         self.discriminator.compile(loss=[self.loss],optimizer=__optimizer,metrics=['accuracy'])
-        optimizer = Adam(lr_gen, 0.5)
 
         # Build the generator
         self.generator = self.build_generator()
@@ -57,7 +56,7 @@ class AlphaGAN():
         # Trains generator to fool the discriminator
         self.alphagan_generator = Model([z, x], [fake, valid,reconstructed_x])
         self.alphagan_generator.compile(loss=[self.loss, self.loss,self.loss],
-            optimizer=optimizer)
+            optimizer=__optimizer)
 
     def train_model(self, epochs, batch_size, samples_interval):
         with self.experiment.train():
