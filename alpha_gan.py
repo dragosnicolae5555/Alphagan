@@ -47,15 +47,15 @@ class AlphaGAN():
         # Encode image
         x = Input(shape=self.x_shape)
         z_ = self.encoder(x)
-        reconstructed_img = self.generator(z_)
+        reconstructed_x = self.generator(z_)
 
-        # Latent -> img is fake, and img -> latent is valid
+        # Latent -> x is fake, and x -> latent is valid
         fake = self.discriminator([z, x_])
         valid = self.discriminator([z_, x])
 
         # Set up and compile the combined model
         # Trains generator to fool the discriminator
-        self.alphagan_generator = Model([z, x], [fake, valid,reconstructed_img])
+        self.alphagan_generator = Model([z, x], [fake, valid,reconstructed_x])
         self.alphagan_generator.compile(loss=[self.loss, self.loss,self.loss],
             optimizer=optimizer)
 
@@ -140,14 +140,14 @@ class AlphaGAN():
         model.name="generator"  
         model.summary()
         z = Input(shape=(self.latent_dim,))
-        gen_img = model(z)
-        return Model(z, gen_img)
+        gen_x = model(z)
+        return Model(z, gen_x)
 
     def build_discriminator(self):
 
         z = Input(shape=(self.latent_dim, ))
-        img = Input(shape=self.x_shape)
-        d_in = concatenate([z, img])
+        x = Input(shape=self.x_shape)
+        d_in = concatenate([z, x])
 
         model = Dense(128)(d_in)
         model = LeakyReLU(alpha=0.2)(model)
@@ -159,7 +159,7 @@ class AlphaGAN():
         model = LeakyReLU(alpha=0.2)(model)
         model = Dropout(0.5)(model)
         validity = Dense(1, activation="sigmoid")(model)
-        model = Model([z, img], validity)
+        model = Model([z, x], validity)
         model.name="discriminator"
         model.summary()
         return model
