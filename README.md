@@ -14,7 +14,7 @@ Add your comet-ml api key and project in config.py
 ###  run main.py 
 ```python main.py```
 
-Example experiment https://www.comet.ml/dragosnicolae5555/c-alpha/5f6db96a5eb248eba910c21148645334
+Example experiment https://www.comet.ml/dragosnicolae5555/c-alpha/279172963e4041e79764b6a25d18c71b
 
 General Framework :
  1.   Train GAN to generate only normal data points (negative samples).
