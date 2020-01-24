@@ -5,7 +5,6 @@ from comet_ml import Experiment, ExistingExperiment
 import etl
 from alpha_gan import AlphaGAN
 
-lr_gen = 0.02
 lr_dis = 0.00001
 latent_dim = 15
 nb_epochs = 100000

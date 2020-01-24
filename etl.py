@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np 
 
 def process_data(path,test_size,random_state):
-    data = pd.read_csv("data/creditcardfraud.zip",compression='zip')
+    data = pd.read_csv(path,compression='zip')
     data['normAmount'] = StandardScaler().fit_transform(data['Amount'].values.reshape(-1, 1))
     data = data.drop(['Time','Amount'],axis=1)
     X = data.iloc[:, data.columns != 'Class'].values

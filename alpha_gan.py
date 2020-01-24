@@ -16,7 +16,7 @@ import keras.backend as K
 from test_model import test_model 
 
 class AlphaGAN():
-    def __init__(self,latent_dim,lr_dis,lr_gen,loss,experiment,test_X,test_y,X_train):
+    def __init__(self,latent_dim,lr_dis,loss,experiment,test_X,test_y,X_train):
         self.test_X=test_X
         self.test_y=test_y
         self.X_train=X_train
@@ -39,11 +39,11 @@ class AlphaGAN():
         # The part of the bigan that trains the discriminator and encoder
         self.discriminator.trainable = False
 
-        # Generate image from sampled noise
+        # Generate x from sampled noise
         z = Input(shape=(self.latent_dim, ))
         x_ = self.generator(z)
 
-        # Encode image
+        # Encode x
         x = Input(shape=self.x_shape)
         z_ = self.encoder(x)
         reconstructed_x = self.generator(z_)
@@ -76,7 +76,7 @@ class AlphaGAN():
                 z = np.random.normal(size=(batch_size, self.latent_dim))
                 x_ = self.generator.predict(z)
 
-                # Select a random batch of images and encode
+                # Select a random batch of x and encode
                 idx = np.random.randint(0, self.X_train.shape[0], batch_size)
                 x = self.X_train[idx]
                 z_ = self.encoder.predict(x)
